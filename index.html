@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang = "ru">
+  <head>
+  <meta charset = "utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выездная химчистка</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<link rel = "stylesheet" href = "css/styles.css" media = "screen">
+	<link href="https://fonts.googleapis.com/css?family=Holtwood+One+SC&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" type="text/css" href="js/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="js/slick/slick-theme.css">
+  </head>
+  
+  <body onload = "showPricelistCateg(1);showComments(1);showExamplesWorks(1);">
+  
+  <script>
+  
+    let commentNum = 1;
+	let examplesBlockNum = 1;
+	
+    function showOrderForm(state){
+      document.getElementById('chem-order').style.display = state;			 
+	  document.getElementById('back-transparent').style.display = state;
+	}
+	
+	function showSuccessWindow(state){
+	  if(document.getElementById('chem-order').style.display == 'block') document.getElementById('chem-order').style.display = 'none';
+      document.getElementById('successblock').style.display = state;			 
+	  document.getElementById('back-transparent').style.display = state;
+	}
+	
+	function showListItem(arg) {
+	  switch(document.getElementById('circle' + arg).innerHTML) {
+	    case '+':
+	      document.getElementById('circle' + arg).innerHTML = '-';
+	      document.querySelector('.faq__list dd:nth-of-type(' + arg + ')').style.display = 'block';
+		  document.querySelector('.faq__list dd:nth-of-type(' + arg + ')').style.background = '#FFFFFF';
+		  document.querySelector('.faq__list dt:nth-of-type(' + arg + ')').style.background = '#FFFFFF';
+		break;
+		
+		case '-':
+	      document.getElementById('circle' + arg).innerHTML = '+';
+	      document.querySelector('.faq__list dd:nth-of-type(' + arg + ')').style.display = 'none';
+		  document.querySelector('.faq__list dd:nth-of-type(' + arg + ')').style.background = '#EDEFF3';
+		  document.querySelector('.faq__list dt:nth-of-type(' + arg + ')').style.background = '#EDEFF3';
+		break;
+	  }
+	}
+	
+	function showMasterInfo(state){
+      document.getElementById('master__info').style.display = state;			 
+	  document.getElementById('back-transparent').style.display = state;
+	}
+	
+	function showPricelistCateg(numLink) {
+	  for(let ind = 1; ind <= 4; ind++) {
+	    if(document.getElementById('categ' + ind + '__price').style.color != '#274B74') {
+		  document.getElementById('categ' + ind + '__price').style.color = '#274B74';
+		  document.getElementById('rotcateg' + ind + '__price').style.color = '#274B74';
+		}
+		
+		if(document.querySelectorAll('.categline' + ind)[1].style.display != 'none') {
+		  document.querySelectorAll('.categline' + ind)[1].style.display = 'none';
+		  document.querySelectorAll('.rcategline' + ind)[1].style.display = 'none';
+	    }
+	  }
+	  
+	  document.getElementById('categ' + numLink + '__price').style.color = '#0EABDE';
+	  document.getElementById('rotcateg' + numLink + '__price').style.color = '#0EABDE';
+	  document.querySelectorAll('.categline' + numLink)[1].style.display = 'block';
+	  document.querySelectorAll('.rcategline' + numLink)[1].style.display = 'block';
+	  
+	  if(numLink == 1) {
+	    if(document.getElementById('pricelistrow2').style.display == 'none') document.getElementById('pricelistrow2').style.display = 'flex';
+		if(document.getElementById('punct4').style.display == 'none') document.getElementById('punct4').style.display = 'block';
+		if(document.getElementById('punct8').style.display == 'none') document.getElementById('punct8').style.display = 'block';
+		
+	    inputToPriceBlock(1, 'Диван', '2-х местный', 'Divan1.png',151,77, '1000 р.');
+		inputToPriceBlock(2, 'Диван', '3-х местный', 'Divan2.png', 202, 80, '1500 р.');
+		inputToPriceBlock(3, 'Диван', '4-х местный', 'Divan3.png', 177, 87, '2000 р.');
+		inputToPriceBlock(4, 'Диван', '5-ти местный', 'Divan4.png',198, 80, '2500 р.');
+		inputToPriceBlock(5, 'Кресло', '', 'Chair.png', 103, 117, '600-800 р.');
+		inputToPriceBlock(6, 'Кухонный угол', '', 'Kitchencorner.png', 161, 74, '1000-1500 р.');
+		inputToPriceBlock(7, 'Пуф', '', 'пуф.png', 114.43, 86.15, '200-500 р.');
+		inputToPriceBlock(8, 'Стул', '', 'Stool.png', 85, 136, '200-400 р.');
+	  }
+	  
+	  if(numLink == 2) {
+	    if(document.getElementById('pricelistrow2').style.display != 'none') document.getElementById('pricelistrow2').style.display = 'none';
+		if(document.getElementById('punct4').style.display != 'none') document.getElementById('punct4').style.display = 'none';
+		
+		inputToPriceBlock(1, 'Ковер', 'синтетический', 'Group146.png',107,132.29, '160 P/M');
+		inputToPriceBlock(2, 'Ковер', 'натуральный', 'Group148.png', 97, 132, '180 P/M');
+		inputToPriceBlock(3, 'Ковер', 'длинноворсовый', 'ковер длинноворсовы.png', 208.73, 111.05, '180 P/M');
+		
+	  }
+	  
+	  if(numLink == 3) {
+	    if(document.getElementById('pricelistrow2').style.display == 'none') document.getElementById('pricelistrow2').style.display = 'flex';
+		
+	    document.getElementById('punct4').style.display = 'none';
+		document.getElementById('punct8').style.display = 'none';
+	    inputToPriceBlock(1, 'Подушка', 'диванная маленькая', 'Pillow1.png',98,101, '50 р.');
+		inputToPriceBlock(2, 'Подушка', 'диванная средняя', 'Pillow2.png', 132, 136, '100 р.');
+		inputToPriceBlock(3, 'Подушка', 'диванная большая', 'Pillow3.png', 180, 186, '150 р.');
+		inputToPriceBlock(5, 'Матрас', 'односпальный', 'Mattress1.png',172.24, 121.56, '1000 р.');
+		inputToPriceBlock(6, 'Матрас', 'двуспальный', 'Mattress2.png', 207.92, 178.32, '1500 р.');
+		inputToPriceBlock(7, 'Матрас', 'детский', 'Mattress3.png', 172.24, 121.56, '700 р.');
+		}
+		
+		if(numLink == 4) {
+		  if(document.getElementById('pricelistrow2').style.display == 'none') document.getElementById('pricelistrow2').style.display = 'flex';
+		  if(document.getElementById('punct4').style.display == 'none') document.getElementById('punct4').style.display = 'block';
+		  if(document.getElementById('punct8').style.display == 'none') document.getElementById('punct8').style.display = 'block';
+		
+	      inputToPriceBlock(1, 'Диван', '2-х местный', 'Divan1.png',151,77, '2000 Р.');
+		  inputToPriceBlock(2, 'Диван', '3-х местный', 'Divan2.png', 202, 80, '2500 Р.');
+		  inputToPriceBlock(3, 'Диван', '4-х местный', 'Divan3.png', 177, 87, '3000 Р.');
+		  inputToPriceBlock(4, 'Диван', '5-ти местный', 'Divan4.png',198, 80, '3500 Р.');
+		  inputToPriceBlock(5, 'Диван', 'нестандартный','Divan5.png', 215, 73, 'от 4000 Р.');
+		  inputToPriceBlock(6, 'Кресло', '', 'Chair.png', 103, 117, '1000-1500 Р.');
+		  inputToPriceBlock(7, 'Спальное место', '', 'Berth.png', 160, 110, '500 Р.');
+		  inputToPriceBlock(8, 'Стул', '', 'Stool.png', 85, 136, '800 Р.');
+      }
+	  
+	  
+	}
+	function inputToPriceBlock(numBlock, char1, char2, imgUrl,width, height, cost)
+	{
+	    let data1 = document.querySelectorAll('#punct' + numBlock + ' .text1' );
+		data1[0].innerHTML = char1;
+		let data2 = document.querySelectorAll('#punct' + numBlock + ' .text2' );
+		data2[0].innerHTML = char2;
+		let img = document.querySelectorAll('#punct' + numBlock + ' .img' );
+		img[0].setAttribute('src','img/' + imgUrl);
+		img[0].setAttribute('width', width);
+		img[0].setAttribute('height', height);
+		let data3 = document.querySelectorAll('#punct' + numBlock + ' .cost' );
+		data3[0].innerHTML = cost;	
+	}
+	
+	function showExamplesWorks(numLink) {
+	  for(let ind = 1; ind <= 4; ind++) {
+	    if(document.getElementById('categ' + ind + '__example').style.color != '#274B74') {
+		  document.getElementById('categ' + ind + '__example').style.color = '#274B74';
+		  document.getElementById('rotcateg' + ind + '__example').style.color = '#274B74';
+		}
+		
+		if(document.querySelectorAll('.categline' + ind)[0].style.display != 'none') {
+		  document.querySelectorAll('.categline' + ind)[0].style.display = 'none';
+		  document.querySelectorAll('.rcategline' + ind)[0].style.display = 'none';
+	    }
+	  }
+	  
+	  document.getElementById('categ' + numLink + '__example').style.color = '#0EABDE';
+	  document.getElementById('rotcateg' + numLink + '__example').style.color = '#0EABDE';
+	  document.querySelectorAll('.categline' + numLink)[0].style.display = 'block';
+	  document.querySelectorAll('.rcategline' + numLink)[0].style.display = 'block';
+	  
+	  if(numLink == 1) {
+	    document.querySelector('.examplesblock__works').style.background = 'white';
+	  }
+	  
+	  if(numLink == 2) {
+	    document.querySelector('.examplesblock__works').style.background = 'red';
+	  }
+	  
+	  if(numLink == 3) {
+	    document.querySelector('.examplesblock__works').style.background = 'blue';
+	  }
+	  
+	  if(numLink == 4) {
+	    document.querySelector('.examplesblock__works').style.background = 'yellow';
+	  }
+	}
+	
+	function showCommentsCateg(numLink) {
+	  for(let ind = 1; ind <= 4; ind++) {
+	    if(document.getElementById('categ' + ind + '__comment').style.color != '#0EABDE') {
+		  document.getElementById('categ' + ind + '__comment').style.color = '#0EABDE';
+		}
+		
+		if(document.querySelectorAll('.categline' + ind)[2].style.display != 'none') {
+		  document.querySelectorAll('.categline' + ind)[2].style.display = 'none';
+	    }
+	  }
+	  
+	  document.getElementById('categ' + numLink + '__comment').style.color = '#274B74';
+	  document.querySelectorAll('.categline' + numLink)[2].style.display = 'block';
+	  
+	  if(numLink == 1) {
+	    document.querySelector('.commentsblock__content').style.background = 'white';
+	  }
+	  
+	  if(numLink == 2) {
+	    document.querySelector('.commentsblock__content').style.background = 'red';
+	  }
+	  
+	  if(numLink == 3) {
+	    document.querySelector('.commentsblock__content').style.background = 'blue';
+	  }
+	  
+	  if(numLink == 4) {
+	    document.querySelector('.commentsblock__content').style.background = 'yellow';
+	  }
+	}
+	
+	function showNextComment()
+	{
+	  showComments(++commentNum);
+	}
+	
+	function showPrevComment()
+	{
+	  showComments(--commentNum);
+	}
+	
+	function showComments(ind)
+	{
+	  let i;
+	  let comments = document.getElementsByClassName('commentsblock__content');
+	  
+	  if(ind > comments.length) commentNum = 1;
+	  if(ind < 1) commentNum = comments.length;
+	  for(i=0; i < comments.length; i++) comments[i].style.display = 'none';
+	  comments[commentNum-1].style.display = 'block';
+	}
+	
+	
+	function chooseCity(cid) {
+	  let temp;
+	  temp = document.getElementById('city1').innerHTML;
+	  document.getElementById('city1').innerHTML = document.getElementById('city' + cid).innerHTML;
+	  document.getElementById('city' + cid).innerHTML = temp;
+	}
+	
+	
+  </script>
+  
+    <header class = "group219">
+	  <div class = "group219__group143">
+	    <div class = "group219__logo"></div>
+		<p class = "group219__p">Clean house</p>
+		<ul class = "group219__cities">
+		  <li class = "group219__item"><a href = "javascript:void(0)" id = "city1" onclick = "chooseCity(1)">Старый Оскол</a><div class = "group219__arrow"></div></li>
+		  <li class = "group219__item"><a href = "javascript:void(0)" id = "city2" onclick = "chooseCity(2)">Белгород</a></li>
+		  <li class = "group219__item"><a href = "javascript:void(0)" id = "city3" onclick = "chooseCity(3)">Губкин</a></li>
+		</ul>
+		<div class = "group219__contact">
+		  <div class = "group219__icon"></div>
+		  <p class = "group219__tel">+7(951) 140-64-64</p>
+		</div>
+		
+		<div class = "group219__btnblock">
+		  <div class = "btn_c blue">
+		    <p class = "group219__btntext"><a href = "tel:+79511406464">Позвоните мне</a></p></div>
+		</div>
+		
+		<ul class = "group219__menu">
+		  <li class = "group219__menu-item"><a href = "javascript:void(0)" onclick = "document.getElementById('about').scrollIntoView({behavior: 'smooth'})">О нас</a></li>
+		  <li class = "group219__menu-item"><a href = "javascript:void(0)" onclick = "document.getElementById('price').scrollIntoView({behavior: 'smooth'})">Прайс</a></li>
+		  <li class = "group219__menu-item"><a href = "javascript:void(0)" onclick = "document.getElementById('faq').scrollIntoView({behavior: 'smooth'})">Вопросы</a></li>
+		  <li class = "group219__menu-item"><a href = "javascript:void(0)" onclick = "document.getElementById('comments').scrollIntoView({behavior: 'smooth'})">Отзывы</a></li>
+		</ul>
+	  </div>
+	  <div class = "group219__advertising">
+	    <div class = "group219__text">
+		  <h1 class = "group219__text-h1">Выездная химчистка</h1>
+		  <hr class = "group219__text-line">
+		  <p class = "group219__text-p">Удаление пятен и запахов с двойной гарантией!</p>
+		  <div class = "group219__adv-btnblock">
+		    <div class = "advbtn_c">
+			  <p class = "adv__btntext" onclick = "showOrderForm('block')"><a href = "javascript:void(0)">Вызвать мастера</a></p>
+		    </div>
+		  </div>
+	  </div>
+	</header>
+	
+	<div id = "back-transparent" onclick = "showOrderForm('none');showSuccessWindow('none');showMasterInfo('none');"></div>
+	
+	<div id = "chem-order">
+	  <p class = "chem-order__head">Оставьте заявку</p>
+	  <div class = "chem-order__line"></div>
+	  <p class = "chem-order__text"> и мы перезвоним Вам в ближайшее время</p>
+	  <form id = "chem-order__form">
+		<input type = "text" id = "chem-order__form-tel" placeholder = "Введите номер телефона" required><br>
+		<input type = "text" id = "chem-order__form-name"  placeholder = "Введите Ваше имя" required>
+	  </form>
+	  
+	  <div id = "chem-order__btnblock" onclick = "showSuccessWindow('block')">
+	    <div class = "chem-orderbtn_c lightblue">
+	      <p class = "chem-order__btntext"><a href = "javascript:void(0)">Заказать химчистку</a></p>
+		</div>
+	  </div>
+	  <div class = "closeblock" onclick = "showOrderForm('none')"><div class = "closeblock__cross"><div class = "closeblock__cross-left"></div><div class = "closeblock__cross-right"></div></div></div>
+	</div>
+	
+	<div id = "successblock">
+	  <div class = "successblock__statusicon"><div class = "successblock__checked"></div></div>
+	  <p class = "successblock__statustext">Успешно отправлено</p>
+	  <p class = "successblock__text">Ваша заявка отправлена и принята в обработку менеджером</p>
+	  <div id = "successblock__btnblock">
+	    <div class = "successblock_c lightblue" onclick = "showSuccessWindow('none')">
+	      <p class = "successblock__btntext"><a href = "javascript:void(0)">Вернуться на сайт</a></p>
+		</div>
+	  </div>
+	</div>
+	  
+	
+	<div class = "group68">
+	  <div class = "group68__question">
+	    <h2 class = "group68__question-h2" id = "about">Почему мы?</h2>
+		<div class = "group68__line"></div>
+	  </div>
+	  <div class = "group68__props">
+		
+		<div class = "group68__prop1">
+		  <div class = "group68__img1"></div>
+		  <p class = "group68__term1">Эффективно</p>
+		  <div class = "group68__propline1"></div>
+		  <p class = "group68__def1">Ваша мебель выглядит как новая и приятно пахнет. Химчистка особенно полезна для аллергиков и детей.</p>
+		</div>
+	    
+		<div class = "group68__prop2">
+	      <div class = "group68__img2"></div>
+		  <p class = "group68__term2">Быстро</p>
+		  <div class = "group68__propline2"></div>
+		  <p class = "group68__def2">Изделие никуда не нужно везти, наш мастер приедет сам и все почистит, пока Вы занимаетесь своими делами.</p>
+		</div>
+	    
+	    <div class = "group68__prop3">
+	      <div class = "group68__img3"></div>
+		  <p class = "group68__term3">Выгодно</p>
+		  <div class = "group68__propline3"></div>
+		  <p class = "group68__def3">Экономия Ваших денег и времени за счет чистки, а не замены изделия.</p>
+		</div>
+	    
+	    <div class = "group68__prop4">
+	      <div class = "group68__img4"></div>
+		  <p class = "group68__term4">Гарантированно</p>
+		  <div class = "group68__propline4"></div>
+		  <p class = "group68__def4">Весь процесс химчистки происходит у Вас на глазах, наблюдайте за результатом сами.</p>
+		</div>
+      </div>
+	</div>
+	
+	
+	<div class = "group76">
+	  <div class = "group76__block1">
+	    <p class = "group76__block1-text1">5</p><p class = "group76__block1-text2">лет</p>
+	    <div class = "group76__line-1"></div>
+	    <p class = "group76__block1-text3">мы трудимся ради вашего блага</p>
+	  </div>
+	  
+	  <div class = "group76__block2">
+	    <p class = "group76__block2-text1">7</p><p class = "group76__block2-text2">дней</p>
+	    <div class = "group76__line-2"></div>
+	    <p class = "group76__block2-text3">в неделю мы готовы взяться за работу</p>
+	  </div>
+	  
+	  <div class = "group76__block3">
+	    <p class = "group76__block3-text1">5600+</p><p class = "group76__block3-text2">клиентов</p>
+	    <div class = "group76__line-3"></div>
+	    <p class = "group76__block3-text3">уже воспользовалось нашими услугами и обратилось снова</p>
+	  </div>
+	    <div class = "group76__block4">
+	      <p class = "group76__block4-text1">3</p><p class = "group76__block4-text2">города</p>
+	      <div class = "group76__line-4"></div>
+	      <p class = "group76__block4-text3">Старый Оскол<br>Белгород<br>Губкин</p>
+	    </div>
+	</div>
+	
+	<div class = "chem-proc"> 
+	  <div class = "chem-proc__headline">
+	    <h2 class = "chem-proc__head">Этапы химчистки</h2>
+	    <div class = "chem-proc__line"></div>
+	  </div>
+	    <ol class = "chem-proc__alg">
+		  <li class = "chem-proc__alg-punct1"><p>Диагностика ткани и подбор необходимых средств</p></li>
+		  <li class = "chem-proc__alg-punct2"><p>Распыление гипоалергенной химии</p></li>
+		  <li class = "chem-proc__alg-punct3"><p>Обработка сложных пятен специально подобранными средствами и устранение запахов</p></li>
+		  <li class = "chem-proc__alg-punct4"><p>Сбор профессиональным пылесосом грязи и влаги</p></li>
+		  <li class = "chem-proc__alg-punct5"><p>Тщательное вымывание остатков химии</p></li>
+	    </ol>
+	  <div class = "chem-proc__img"></div>
+	</div>
+	
+	<div class = "examplesblock">
+	  <h2 class = "examplesblock__head">Примеры работ</h2>
+	  <div class = "examplesblock__line"></div>
+	  <ul class = "examplesblock__categs">
+	    <li class = "examplesblock__categ1"><a href = "javascript:void(0)" onclick = "showExamplesWorks(1)" id = "categ1__example">Ткань</a><div class = "categline1"></div></li>
+		<li class = "examplesblock__categ2"><a href = "javascript:void(0)" onclick = "showExamplesWorks(2)" id = "categ2__example">Ковры</a><div class = "categline2"></div></li>
+		<li class = "examplesblock__categ3"><a href = "javascript:void(0)" onclick = "showExamplesWorks(3)" id = "categ3__example">Другое</a><div class = "categline3"></div></li>
+		<li class = "examplesblock__categ4"><a href = "javascript:void(0)" onclick = "showExamplesWorks(4)" id = "categ4__example">Кожа</a><div class = "categline4"></div></li>
+	  </ul>
+	  
+	  <ul class = "examplesblock__categs examplesblock__categs--rotated">
+	    <li class = "examplesblock__categ1"><a href = "javascript:void(0)" onclick = "showExamplesWorks(1)" id = "rotcateg1__example">Ткань</a><div class = "rcategline1"></div></li>
+		<li class = "examplesblock__categ2"><a href = "javascript:void(0)" onclick = "showExamplesWorks(2)" id = "rotcateg2__example">Ковры</a><div class = "rcategline2"></div></li>
+		<li class = "examplesblock__categ3"><a href = "javascript:void(0)" onclick = "showExamplesWorks(3)" id = "rotcateg3__example">Другое</a><div class = "rcategline3"></div></li>
+		<li class = "examplesblock__categ4"><a href = "javascript:void(0)" onclick = "showExamplesWorks(4)" id = "rotcateg4__example">Кожа</a><div class = "rcategline4"></div></li>
+	  </ul>
+	   <div class = "examplesblock__worksarrows">
+	  <div class = "examplesblock__works">
+		<div class = "examplesblock__row1-col1"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/1-1.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/1-2.jpg" width = "255" height = "244"></div>
+		<div class = "examplesblock__row1-col2"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/2-2.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/2-1.jpg" width = "255" height = "244"></div>
+		<div class = "examplesblock__row1-col3"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/3-2 1.jpg" width = "255" height = "244"><img src = "img/3-1 1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		<div class = "examplesblock__row1-col4"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/4-2.jpg" width = "255" height = "244"><img src = "img/4-1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		<div class = "examplesblock__row2-col1"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/5-2.jpg" width = "255" height = "244"><img src = "img/5-1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		<div class = "examplesblock__row2-col2"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/6-2.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/6-1.jpg" width = "255" height = "244"></div>
+		<div class = "examplesblock__row2-col3"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/7-2.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/7-1.jpg" width = "255" height = "244"></div>
+		<div class = "examplesblock__row2-col4"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/8-2.jpg" width = "255" height = "244"><img src = "img/8-1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		<div class = "examplesblock__row3-col1"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/10-2.jpg" width = "255" height = "244"><img src = "img/10-1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		<div class = "examplesblock__row3-col2"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/11-2.jpg" width = "255" height = "244"><img src = "img/11-1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		<div class = "examplesblock__row3-col3"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/9-2.jpg" width = "255" height = "244"><img src = "img/9-1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		<div class = "examplesblock__row3-col4"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/12-1.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/12-2.jpg" width = "255" height = "244"></div>
+		<div class = "examplesblock__row1-col1"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/1-1.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/1-2.jpg" width = "255" height = "244"></div>
+		<div class = "examplesblock__row1-col2"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div><img src = "img/2-2.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/2-1.jpg" width = "255" height = "244"></div>
+	  </div>
+	 
+	    <div class = "examplesarrows">
+		  <div class = "rightarrow"><div class = "rightarrow-top"></div><div class = "rightarrow-bottom"></div></div>
+	      <div class = "leftarrow"><div class = "leftarrow-top"></div><div class = "leftarrow-bottom"></div></div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class = "costblock">
+	  <div class = "costblock__content">
+	    <p class = "costblock__text">Минимальная сумма заказа всего 1200 РУБЛЕЙ</p>
+		<div class = "cost__btnblock">
+		    <div class = "costbtn_c white"  onclick = "showOrderForm('block')">
+			  <p class = "cost__btntext"><a href = "javascript:void(0)">Вызвать мастера</a></p>
+		    </div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class = "pricelist">
+	  <h2 class = "pricelist__head" id = "price">Прайс</h2>
+	  <div class = "pricelist__line"></div>
+	  <ul class = "pricelist__categs">
+	    <li class = "pricelist__categ1"><a href = "javascript:void(0)"  onclick = "showPricelistCateg(1)" id = "categ1__price">Ткань</a><div class = "categline1"></div></li>
+	    <li class = "pricelist__categ2"><a href = "javascript:void(0)"  onclick = "showPricelistCateg(2)" id = "categ2__price">Ковры</a><div class = "categline2"></div></li>
+	    <li class = "pricelist__categ3"><a href = "javascript:void(0)"  onclick = "showPricelistCateg(3)" id = "categ3__price">Другое</a><div class = "categline3"></div></li>
+	    <li class = "pricelist__categ4"><a href = "javascript:void(0)"  onclick = "showPricelistCateg(4)" id = "categ4__price">Кожа</a><div class = "categline4"></div></li>
+	  </ul>
+	
+	  <ul class = "pricelist__categs pricelist__categs--rotated">
+	    <li class = "pricelist__categ1"><a href = "javascript:void(0)" onclick = "showPricelistCateg(1)" id = "rotcateg1__price">Ткань</a><div class = "rcategline1"></div></li>
+	    <li class = "pricelist__categ2"><a href = "javascript:void(0)" onclick = "showPricelistCateg(2)" id = "rotcateg2__price">Ковры</a><div class = "rcategline2"></div></li>
+	    <li class = "pricelist__categ3"><a href = "javascript:void(0)" onclick = "showPricelistCateg(3)" id = "rotcateg3__price">Другое</a><div class = "rcategline3"></div></li>
+	    <li class = "pricelist__categ4"><a href = "javascript:void(0)" onclick = "showPricelistCateg(4)" id = "rotcateg4__price">Кожа</a><div class = "rcategline4"></div></li>
+	  </ul>
+	  <div class = "pricelist__puncts" id = "pricepuncts">
+	    <div class = "pricelist__row1" id = "pricelistrow1">
+	      <div class = "pricelist__punct1" id = "punct1">
+	        <p class = "pricelist__punct-char1 text1">Диван</p>
+		    <p class = "pricelist__punct1-char2 text2">2-х местный</p>
+			<div class = "pricelist__img"><img src = "img/Divan1.png" width = "151" height = "77" class = "img"></div>
+		    <p class = "pricelist__punct1-cost cost">1000 Р.</p>
+	      </div>
+	      <div class = "pricelist__punct2" id = "punct2">
+	        <p class = "pricelist__punct-char1 text1">Диван</p>
+		    <p class = "pricelist__punct2-char2 text2">3-х местный</p>
+			<div class = "pricelist__img"><img src = "img/Divan2.png" width = "202" height = "80" class = "img"></div>
+		    <p class = "pricelist__punct2-cost cost">1500 Р.</p>
+	      </div>
+	      <div class = "pricelist__punct3" id = "punct3">
+	        <p class = "pricelist__punct-char1 text1">Диван</p>
+		    <p class = "pricelist__punct3-char2 text2">4-х местный</p>
+			<div class = "pricelist__img"><img src = "img/Divan3.png" width = "177" height = "87" class = "img"></div>
+		    <p class = "pricelist__punct3-cost cost">2000 Р.</p>
+	      </div>
+	      <div class = "pricelist__punct4" id = "punct4">
+	        <p class = "pricelist__punct-char1 text1">Диван</p>
+		    <p class = "pricelist__punct4-char2 text2">5-ти местный</p>
+			<div class = "pricelist__img"><img src = "img/Divan4.png" width = "198" height = "80" class = "img"></div>
+		    <p class = "pricelist__punct4-cost cost">2500 Р.</p>
+	      </div>
+		</div>
+		<div class = "pricelist__row2" id = "pricelistrow2">
+	      <div class = "pricelist__punct5" id = "punct5">
+	        <p class = "pricelist__punct-char1 text1">Кресло</p>
+			<p class = "pricelist__punct5-char2 text2"></p>
+			<div class = "pricelist__img"><img src = "img/Chair.png" width = "103" height = "117" class = "img"></div>
+		    <p class = "pricelist__punct5-cost cost">600-800 Р.</p>
+	      </div>
+	      <div class = "pricelist__punct6" id = "punct6">
+	        <p class = "pricelist__punct-char1 text1">Кухонный угол</p>
+			<p class = "pricelist__punct6-char2 text2"></p>
+			<div class = "pricelist__img"><img src = "img/Kitchencorner.png" width = "161" height = "74" class = "img"></div>
+		    <p class = "pricelist__punct6-cost cost">1000-1500 Р.</p>
+	      </div>
+	      <div class = "pricelist__punct7" id = "punct7">
+	        <p class = "pricelist__punct-char1 text1">Пуф</p>
+			<p class = "pricelist__punct7-char2 text2"></p>
+			<div class = "pricelist__img"><img src = "img/пуф.png" width = "114.43" height = "86.15" class = "img"></div>
+		    <p class = "pricelist__punct7-cost cost">200-500 Р.</p>
+	      </div>
+	      <div class = "pricelist__punct8" id = "punct8">
+	        <p class = "pricelist__punct-char1 text1">Стул</p>
+			<p class = "pricelist__punct8-char2 text2"></p>
+			<div class = "pricelist__img"><img src = "img/Stool.png" width = "85" height = "136" class = "img"></div>
+		    <p class = "pricelist__punct8-cost cost">200-400 Р.</p>
+	      </div>
+		</div>
+	 </div>
+    </div>
+	
+	<div class = "pricelist__btnblock"  onclick = "showOrderForm('block')">
+      <div class = "pricelistbtn_c lightblue">
+	    <p class = "pricelist__btntext"><a href = "javascript:void(0)">Вызвать мастера</a></p>
+	  </div>
+    </div>
+	
+	<div class = "discountblock">
+	  <div class = "discountblock__mainblock">
+	    <div class = "discountblock__func">
+	      <p class = "discountblock__text1">Скидка до 30%</p>
+	      <p class = "discountblock__text2">постоянным клиентам</p>
+	      <div class = "discount__btnblock" onclick = "showOrderForm('block')">
+		    <div class = "discountbtn_c white">
+			  <p class = "discount__btntext"><a href = "javascript:void(0)">Заказать химчистку</a></p>
+		    </div>
+		  </div>
+		</div>
+	      <div class = "discountblock__imgblock"></div>
+	  </div>
+	</div> 
+
+    <div class = "mastersblock">
+	  <h2 class = "mastersblock__head">Наши мастера</h2>
+	  <div class = "mastersblock__line"></div>
+	  <div class = "mastersblock__listarrowblock">
+	    <div class = "leftarrow"><div class = "leftarrow-top"></div><div class = "leftarrow-bottom"></div></div>
+	    <div class = "mastersblock__masterslist">
+	      <div class = "mastersblock__master1">
+		    <div class = "mastersblock__master1photo">
+		        <img src = "img/Master.jpg" alt = "фото мастера" class = "mastersblock__photo"> 
+                <svg width="252" height="252" viewBox="0 0 252 252" fill="none" xmlns="http://www.w3.org/2000/svg" class = "Ellipses">
+			      <g id = "Ellipsem1">
+                    <circle cx="109" cy="109" r="108.5" fill="#274B74" fill-opacity="0.1" stroke="#274B74" stroke-dasharray="5 5 5 5 5 5"/>
+                  </g>
+				  <g id = "Ellipsem2">
+                    <circle cx="126" cy="126" r="125.5" fill="#274B74" fill-opacity="0.05" stroke="#274B74" stroke-dasharray="5 5 5 5 5 5"/>
+
+                  </g>
+				  </svg>
+		    </div>
+		    <p class = "mastersblock__master1-name">Дашин Вадим</p>
+		    <div class = "mastersblock__master1-line"></div>
+		    <p class = "mastersblock__master1-char1">Опыт работы: 5 лет.</p>
+		    <p class = "mastersblock__master1-char2">В нашей команде: 2 года</p>
+		    <div class = "mastersblock__btnblock" onclick = "showMasterInfo('flex');">
+		      <div class = "mastersblockbtn_c lightblue">
+			    <p class = "mastersblock__btntext"><a href = "javascript:void(0)">Работы мастера</a></p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class = "mastersblock__master2">
+		    <div class = "mastersblock__master2photo">
+		       <img src = "img/Master.jpg" alt = "фото мастера" class = "mastersblock__photo"> 
+               <svg width="252" height="252" viewBox="0 0 252 252" fill="none" xmlns="http://www.w3.org/2000/svg" class = "Ellipses">
+			     <g id = "Ellipsem1">
+                   <circle cx="109" cy="109" r="108.5" fill="#274B74" fill-opacity="0.1" stroke="#274B74" stroke-dasharray="5 5 5 5 5 5"/>
+                 </g>
+				  <g id = "Ellipsem2">
+                    <circle cx="126" cy="126" r="125.5" fill="#274B74" fill-opacity="0.05" stroke="#274B74" stroke-dasharray="5 5 5 5 5 5"/>
+                  </g>
+			   </svg>
+		    </div>
+		    <p class = "mastersblock__master2-name">Евгений Поповичев</p>
+		    <div class = "mastersblock__master2-line"></div>
+		    <p class = "mastersblock__master2-char1">Опыт работы: 5 лет.</p>
+		    <p class = "mastersblock__master2-char2">В нашей команде: 2 года</p>
+		    <div class = "mastersblock__btnblock" onclick = "showMasterInfo('flex');">
+		      <div class = "mastersblockbtn_c lightblue">
+			    <p class = "mastersblock__btntext"><a href = "javascript:void(0)">Работы мастера</a></p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class = "mastersblock__master3">
+		    <div class = "mastersblock__master3photo">
+		       <img src = "img/Master.jpg" alt = "фото мастера" class = "mastersblock__photo"> 
+               <svg width="252" height="252" viewBox="0 0 252 252" fill="none" xmlns="http://www.w3.org/2000/svg" class = "Ellipses">
+			     <g id = "Ellipsem1">
+                   <circle cx="109" cy="109" r="108.5" fill="#274B74" fill-opacity="0.1" stroke="#274B74" stroke-dasharray="5 5 5 5 5 5"/>
+                 </g>
+				  <g id = "Ellipsem2">
+                    <circle cx="126" cy="126" r="125.5" fill="#274B74" fill-opacity="0.05" stroke="#274B74" stroke-dasharray="5 5 5 5 5 5"/>
+                  </g>
+			   </svg>
+		    </div>
+		    <p class = "mastersblock__master3-name">Константин Бонадренко</p>
+		    <div class = "mastersblock__master3-line"></div>
+		    <p class = "mastersblock__master3-char1">Опыт работы: 5 лет.</p>
+		    <p class = "mastersblock__master3-char2">В нашей команде: 2 года</p>
+		    <div class = "mastersblock__btnblock" onclick = "showMasterInfo('block');">
+		      <div class = "mastersblockbtn_c lightblue">
+			    <p class = "mastersblock__btntext"><a href = "javascript:void(0)">Работы мастера</a></p>
+		      </div>
+		    </div>
+		  </div>
+	    </div>
+		<div class = "rightarrow"><div class = "rightarrow-top"></div><div class = "rightarrow-bottom"></div></div>
+      </div>
+	  
+	  <div id = "master__info">
+	  <div class = "master__info-row1">
+	    <div class = "master__info-photo">
+		  <img src = "img/Ellipse.png" width = "252" height = "252" class = "master__info-img1">
+		  <img src = "img/Ellipse-1.png" width = "218" height = "218" class = "master__info-img2">
+		  <img src = "img/Master.jpg" width = "184" height = "184" class = "master__info-img3">
+		</div>
+		<div class = "master__info-text">
+		  <p class = "master__info-name">Евгений Поповичев</p>
+		  <div class = "master__info-line"></div>
+		  <p class = "master__info-data">Город: Белгород<br>Возраст:26 лет<br>Опыт работы: 5 лет<br>В нашей команде:2 года</p>
+		</div>
+	  </div>
+	  <div class = "master__info-row2">
+	    <h2 class = "examplesblock__head master__info-menuhead">Примеры работ</h2>
+	    <div class = "examplesblock__line master__info-menuline"></div>
+	    <ul class = "examplesblock__categs master__info-menucategs">
+	      <li class = "examplesblock__categ1 master__info-menucateg1"><a href = "#">Ткань</a></li>
+		  <li class = "examplesblock__categ2 master__info-menucateg2"><a href = "#">Ковры</a></li>
+		  <li class = "examplesblock__categ3 master__info-menucateg3"><a href = "#">Другое</a></li>
+		  <li class = "examplesblock__categ4 master__info-menucateg4"><a href = "#">Кожа</a></li>
+	    </ul>
+	  </div>
+	  <div class = "master__info-row3">
+	      <div class = "leftarrow master__info-larrow"><div class = "leftarrow-top"></div><div class = "leftarrow-bottom"></div></div>
+	      <div class = "examplesblock__row1-col1 master__info-col1"><div class = "works-selline"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div></div><img src = "img/1-1.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/1-2.jpg" width = "255" height = "244"></div>
+		  <div class = "examplesblock__row1-col2 master__info-col2"><div class = "works-selline"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div></div><img src = "img/2-2.jpg" width = "130" height = "244" class = "examplesblock__works-img"><img src = "img/2-1.jpg" width = "255" height = "244"></div>
+		  <div class = "examplesblock__row1-col3 master__info-col3"><div class = "works-selline"><div class = "works-sel"><div class = "works-sel1"><div class = "worksrightarrow"><div class = "worksrightarrow-top"></div><div class = "worksrightarrow-bottom"></div></div></div><div class = "works-sel2"><div class = "worksleftarrow"><div class = "worksleftarrow-top"></div><div class = "worksleftarrow-bottom"></div></div></div></div><div class = "works-line"></div></div><img src = "img/3-2 1.jpg" width = "255" height = "244"><img src = "img/3-1 1.jpg" width = "130" height = "244" class = "examplesblock__works-img examplesblock__works-imgpos"></div>
+		  <div class = "rightarrow master__info-rarrow"><div class = "rightarrow-top"></div><div class = "rightarrow-bottom"></div></div>
+	  </div>
+	  <div class = "closeblock closemasterwindow"  onclick = "showMasterInfo('none')"><div class = "closeblock__cross"><div class = "closeblock__cross-left"></div><div class = "closeblock__cross-right"></div></div></div>
+	  </div>
+	</div>
+
+    <div class = "faq">
+	  <h2 class = "faq__head" id = "faq">Часто задаваемые вопросы</h2>
+	  <div class = "faq__line"></div>
+	  
+	  <dl class = "faq__list">
+	    <dt class = "faq__list-item-term"><p class = "faq__list-item-termtext">Нужно ли подготавливать диван перед чисткой?<span class = "faq__list-item-showdef question1" id = "circle1" onclick = "showListItem(1)">+</span></p></dt>
+		  <dd class = "faq__list-item-def"><p class = "faq__list-item-deftext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.</p></dd>
+		<dt class = "faq__list-item-term"><p class = "faq__list-item-termtext">Сколько будет стоить почистить диван/ковер/матрас?<span class = "faq__list-item-showdef question2" id = "circle2" onclick = "showListItem(2)">+</span></p></dt>
+		  <dd class = "faq__list-item-def"><p class = "faq__list-item-deftext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.</p></dd>
+		<dt class = "faq__list-item-term"><p class = "faq__list-item-termtext">Выезжаете ли вы на чистку в квартиру/дом на стадии ремонта?<span class = "faq__list-item-showdef question3" id = "circle3" onclick = "showListItem(3)">+</span></p></dt>
+		  <dd class = "faq__list-item-def"><p class = "faq__list-item-deftext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.</p></dd>
+		<dt class = "faq__list-item-term"><p class = "faq__list-item-termtext">У меня дома дети и собака. Не будет ли им плохо от химии?<span class = "faq__list-item-showdef question4" id = "circle4" onclick = "showListItem(4)">+</span></p></dt>
+		  <dd class = "faq__list-item-def"><p class = "faq__list-item-deftext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.</p></dd>
+		<dt class = "faq__list-item-term"><p class = "faq__list-item-termtext">Делаете ли Вы сухую чистку мебели/ковров?<span class = "faq__list-item-showdef question5" id = "circle5" onclick = "showListItem(5)">+</span></p></dt>
+		  <dd class = "faq__list-item-def"><p class = "faq__list-item-deftext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.</p></dd>
+		<dt class = "faq__list-item-term"><p class = "faq__list-item-termtext">Чем производится чистка ковров и мебели?<span class = "faq__list-item-showdef question6" id = "circle6" onclick = "showListItem(6)">+</span></p></dt>
+		  <dd class = "faq__list-item-def"><p class = "faq__list-item-deftext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.</p></dd>
+		<dt class = "faq__list-item-term"><p class = "faq__list-item-termtext">От чего зависит результат чистки?<span class = "faq__list-item-showdef question7" id = "circle7" onclick = "showListItem(7)">+</span></p></dt>
+		  <dd class = "faq__list-item-def"><p class = "faq__list-item-deftext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.</p></dd>
+	  </dl>
+    </div>
+
+    <div class = "commentsblock">
+	  <h2 class = "commentsblock__head" id = "comments">Отзывы</h2>
+	  <div class = "commentsblock__line"></div>
+	  <ul class = "commentsblock__categs">
+	    <li class = "commentsblock__categ1"><a href = "javascript:void(0)" id = "categ1__comment">Ткань</a><div class = "categline1"></li>
+		<li class = "commentsblock__categ2"><a href = "javascript:void(0)" id = "categ2__comment">Ковры</a><div class = "categline2"></li>
+		<li class = "commentsblock__categ3"><a href = "javascript:void(0)" id = "categ3__comment">Другое</a><div class = "categline3"></li>
+		<li class = "commentsblock__categ4"><a href = "javascript:void(0)" id = "categ4__comment">Кожа</a><div class = "categline4"></li>
+	  </ul>
+	  <div class = "commentsblock__main">
+	    <!--<div class = "commentsleftarrow"><div class = "leftarrow-top"></div><div class = "leftarrow-bottom"></div></div>-->
+		<div class = "commentsblock__slider">
+	    <div class = "commentsblock__content" id = "comment1">
+	      <div class = "commentsblock__content-block1">
+		    <div class = "commentsblock__photo"></div>
+		    <div class = "commentsblock__infoblock">
+		      <p class = "commentsblock__infoblock-text1">Клиент: Дашин Вадим</p>
+			  <div class = "commentsblock__infoblock-line"></div>
+		      <p class = "commentsblock__infoblock-text2">Мастер: Евгений Попов</p>
+		      <p class = "commentsblock__infoblock-text3">Химчистка дивана</p>
+		    </div>
+		    <div class = "commentsblock__categphoto">
+		    
+		    </div>
+		  </div>
+		  <div class = "commentsblock__content-block2">
+		    <p class = "commentsblock__commenttext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.
+		           Temporibus dolor, incidunt dicta beatae similique eligendi repudiandae, mollitia exercitationem sint amet rem repellendus doloribus</p>
+		  </div>
+        </div>
+		
+		<div class = "commentsblock__content" id = "comment2" style = "background:blue;">
+	      <div class = "commentsblock__content-block1">
+		    <div class = "commentsblock__photo"></div>
+		    <div class = "commentsblock__infoblock">
+		      <p class = "commentsblock__infoblock-text1">Клиент: Дашин Вадим</p>
+			  <div class = "commentsblock__infoblock-line"></div>
+		      <p class = "commentsblock__infoblock-text2">Мастер: Евгений Попов</p>
+		      <p class = "commentsblock__infoblock-text3">Химчистка дивана</p>
+		    </div>
+		    <div class = "commentsblock__categphoto">
+		    
+		    </div>
+		  </div>
+		  <div class = "commentsblock__content-block2">
+		    <p class = "commentsblock__commenttext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.
+		           Temporibus dolor, incidunt dicta beatae similique eligendi repudiandae, mollitia exercitationem sint amet rem repellendus doloribus</p>
+		  </div>
+        </div>
+		
+		<div class = "commentsblock__content" id = "comment3" style = "background:white;">
+	      <div class = "commentsblock__content-block1">
+		    <div class = "commentsblock__photo"></div>
+		    <div class = "commentsblock__infoblock">
+		      <p class = "commentsblock__infoblock-text1">Клиент: Дашин Вадим</p>
+			  <div class = "commentsblock__infoblock-line"></div>
+		      <p class = "commentsblock__infoblock-text2">Мастер: Евгений Попов</p>
+		      <p class = "commentsblock__infoblock-text3">Химчистка дивана</p>
+		    </div>
+		    <div class = "commentsblock__categphoto">
+		    
+		    </div>
+		  </div>
+		  <div class = "commentsblock__content-block2">
+		    <p class = "commentsblock__commenttext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi aut at laborum modi ullam. Cumque doloremque tenetur fugit, quidem, laboriosam laborum eaque asperiores assumenda commodi doloribus placeat dolorum quasi repellendus vel amet, dignissimos reprehenderit.
+		           Temporibus dolor, incidunt dicta beatae similique eligendi repudiandae, mollitia exercitationem sint amet rem repellendus doloribus</p>
+		  </div>
+        </div>
+		</div>
+		<!--<div class = "commentsrightarrow"><div class = "rightarrow-top"></div><div class = "rightarrow-bottom"></div></div>-->
+	  </div>
+    </div>
+	
+    <div class = "orderblock">
+	  <div class = "orderblock__content">
+	    <div class = "orderblock__maincontent">
+	      <p class = "orderblock__head">Хочу также!</p>
+		  <div class = "orderblock__line"></div>
+		  <p class = "orderblock__text">Оставьте свои контакты и наш администратор свяжется с Вами</p>
+		  <form class = "orderblock__form">
+		    <input type = "text" class = "orderblock__form-tel" placeholder = "Введите номер телефона" required>
+			<input type = "text" class = "orderblock__form-name" placeholder = "Введите Ваше имя" required>
+			<div class = "orderblock__checkboxcont">
+			  <input type = "checkbox" class = "orderblock__checkbox" id = "checkel">
+			  <div class = "orderblock__checkbox-new"></div>
+			  <label for = "checkel" class = "orderblock__checkboxtext">Я согласен с политикой конфиденциальности</label>
+			</div>
+		  
+		    <div class = "orderblock__btnblock" onclick = "showSuccessWindow('block')">
+		      <button class = "orderblockbtn_c white">
+			    <p class = "orderblock__btntext">Заказать химчистку</p>
+		      </button>
+		    </div>
+		  </form>
+	    </div>
+	  </div>	
+	</div>
+	
+	<footer>
+	  <div class = "footercont">
+	    <div class = "footercont__citieslist">
+		  <div class = "footercont__citieslist-icon"></div>
+		  <div class = "footercont__citieslist-text">
+		    <p class = "footercont__citieslist-textp">Города: </p>
+			<p class = "footercont__citieslist-textlist">Старый Оскол<br>Белгород<br>Губкин</p>
+		  </div>
+		</div>
+		<div class = "footercont__tel">
+		  <div class = "footercont__tel-icon"></div>
+		  <div class = "footercont__tel-text">
+		    <p class = "footercont__tel-textp">Телефон: </p>
+			<p class = "footercont__tel-textlist">+7 (951) 140-64-64<br>+7 (951) 140-64-64</p>
+		  </div>
+		</div>
+		<div class = "footercont__graphic">
+		  <div class = "footercont__graphic-icon"></div>
+		  <div class = "footercont__graphic-text">
+		    <p class = "footercont__graphic-text1">Работаем ежедневно</p>
+			<p class = "footercont__graphic-text2">без перерывов и выходных с 9:00 до 21:00.</p>
+		  </div>
+		</div>
+		<div class = "footercont__icon1">
+		</div>
+		<div class = "footercont__icon2"></div>
+	  </div>
+	</footer>
+	<script type="text/javascript" src="js/slick/slick.min.js"></script>
+	<script type="text/javascript" src="js/sliders.js"></script>
+  </body>
+</html>
